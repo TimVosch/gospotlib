@@ -10,6 +10,8 @@ import (
 	"github.com/timvosch/gospot/internal/crypto"
 )
 
+// TODO: Implement locking for concurrent write on socket
+
 const (
 	SHN_MAC_LEN = 4
 )
