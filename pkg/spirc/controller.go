@@ -5,10 +5,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/librespot-org/librespot-golang/librespot/core"
 	"github.com/librespot-org/librespot-golang/librespot/mercury"
 	"github.com/timvosch/gospot/pkg/pb"
+	"google.golang.org/protobuf/proto"
 )
 
 // Controller is a structure for Spotify Connect remote control interface.

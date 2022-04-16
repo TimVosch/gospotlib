@@ -1,4 +1,6 @@
+syntax="proto2";
 package pb;
+option go_package = "./pkg/pb";
 
 message EventReply {
     optional int32 queued = 0x1;

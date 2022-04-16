@@ -6,9 +6,9 @@ import (
 	"io"
 	"log"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/timvosch/gospot/internal/crypto"
 	"github.com/timvosch/gospot/pkg/pb"
+	"google.golang.org/protobuf/proto"
 )
 
 // insecureStream ...

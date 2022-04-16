@@ -1,4 +1,6 @@
+syntax="proto2";
 package pb;
+option go_package = "./pkg/pb";
 
 message Toplist {
     repeated string items = 0x1;

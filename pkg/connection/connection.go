@@ -9,8 +9,8 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/timvosch/gospot/pkg/pb"
+	"google.golang.org/protobuf/proto"
 )
 
 var (

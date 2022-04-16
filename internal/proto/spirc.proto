@@ -1,4 +1,6 @@
+syntax="proto2";
 package pb;
+option go_package = "./pkg/pb";
 
 message Frame {
     optional uint32 version = 0x1;
