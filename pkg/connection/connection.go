@@ -3,6 +3,8 @@ package connection
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"log"
 	"math/rand"
 	"net"
 	"net/http"
@@ -12,12 +14,17 @@ import (
 )
 
 var (
-	ErrAuthFailure = errors.New("auth failure")
+	ErrLoginFailed         = errors.New("auth failure")
+	ErrKeyNegotationFailed = errors.New("key negotiation failed")
+	ErrConnectionFailed    = errors.New("connection failed")
 )
 
 const (
-	AP_ENDPOINT = "http://apresolve.spotify.com:80"
-	AP_FALLBACK = "ap.spotify.com:443"
+	AP_ENDPOINT         = "http://apresolve.spotify.com:80"
+	AP_FALLBACK         = "ap.spotify.com:443"
+	PACKET_LOGIN        = 0xab
+	PACKET_AP_WELCOME   = 0xac
+	PACKET_AUTH_FAILURE = 0xad
 )
 
 // Connection ...
@@ -36,9 +43,10 @@ func Connect(cred *pb.LoginCredentials, deviceID string) (*Connection, error) {
 
 	// Find a spotify access point
 	ap := getAP()
+	log.Printf("[Connection] Connecting to %s...", ap)
 	sock, err := net.Dial("tcp", ap)
 	if err != nil {
-		return nil, err
+		return nil, ErrConnectionFailed
 	}
 
 	// Negotiate keys
@@ -46,18 +54,22 @@ func Connect(cred *pb.LoginCredentials, deviceID string) (*Connection, error) {
 	keys, err := insecure.NegotiateKeys()
 	if err != nil {
 		sock.Close()
-		return nil, err
+		log.Printf("[Connection] Key negotiation failed: %s", err)
+		return nil, ErrKeyNegotationFailed
 	}
 
 	// Create secure stream
 	conn.stream = newSecureStream(sock, keys)
 
 	// Login
+	log.Printf("[Connection] Logging in for %s\n", *cred.Username)
 	if err := conn.login(); err != nil {
 		sock.Close()
-		return nil, err
+		log.Printf("[Connection] Login failed: %s", err)
+		return nil, fmt.Errorf("%w: %s", ErrLoginFailed, err)
 	}
 
+	log.Println("[Connection] Login successful")
 	return conn, nil
 }
 
@@ -81,27 +93,27 @@ func (c *Connection) login() error {
 	}
 	clientLoginRaw, err := proto.Marshal(clientLogin)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to marshal login packet: %s", err)
 	}
-	if err := c.stream.Send(PacketLogin, clientLoginRaw); err != nil {
-		return err
+	if err := c.stream.Send(PACKET_LOGIN, clientLoginRaw); err != nil {
+		return fmt.Errorf("failed to send login packet: %s", err)
 	}
 
 	// Get and parse response
 	cmd, serverLoginRaw, err := c.stream.Receive()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to receive login response: %v", err)
 	}
 	// failed
-	if cmd == PacketAuthFailure {
-		return ErrAuthFailure
-	} else if cmd != PacketAPWelcome {
-		return errors.New("unexpected packet")
+	if cmd == PACKET_AUTH_FAILURE {
+		return getLoginFailedReason(serverLoginRaw)
+	} else if cmd != PACKET_AP_WELCOME {
+		return fmt.Errorf("unexpected packet: %d", cmd)
 	}
 	// success
 	var serverLogin pb.APWelcome
 	if err := proto.Unmarshal(serverLoginRaw, &serverLogin); err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal login response: %v", err)
 	}
 
 	// Create new credentials
@@ -112,6 +124,15 @@ func (c *Connection) login() error {
 	}
 
 	return nil
+}
+
+func getLoginFailedReason(data []byte) error {
+	var pkt pb.APLoginFailed
+	if err := proto.Unmarshal(data, &pkt); err != nil {
+		return fmt.Errorf("failed to unmarshal login failed packet : %v", err)
+	}
+
+	return fmt.Errorf("spotify reported: %s", *pkt.ErrorDescription)
 }
 
 // apListResponse ...

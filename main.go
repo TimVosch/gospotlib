@@ -30,13 +30,14 @@ func main() {
 			return
 		case creds := <-disc.Credentials():
 			{
-				log.Printf("[Main] Received credentials for: %s\n", creds)
+				log.Printf("[Main] Received credentials for: %s\n", *creds.Username)
 				conn, err := connection.Connect(creds, disc.DeviceID())
 				if err != nil {
 					log.Printf("[Main] Failed to connect: %s\n", err)
 					continue
 				}
 				log.Printf("[Main] Connected and authenticated succesfully!")
+				// TODO: use authentication connection to interact with spotify API's
 				conn.Close()
 			}
 		}
