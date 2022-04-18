@@ -42,6 +42,30 @@ func Proto() error {
 	return sh.RunV("protoc", protocParameters...)
 }
 
+func Clean() error {
+	exts := []string{".pb.go"}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+
+	return filepath.Walk(filepath.Join(wd, "pkg/pb"), func(path string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		for _, ext := range exts {
+			if !strings.HasSuffix(path, ext) {
+				continue
+			}
+			return sh.Rm(path)
+		}
+
+		return nil
+	})
+}
+
 func Docs() error {
 	return sh.RunV(
 		"docker", "run",
