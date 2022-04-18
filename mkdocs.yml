@@ -28,8 +28,8 @@ markdown_extensions:
       custom_checkbox: true
 
 nav:
-  - getting-started/introduction.md
-  - getting-started/packages.md
+  - index.md
+  - packages.md
   - Contributing:
     - contributing/development.md
   - Spotify:
