@@ -1,13 +1,14 @@
-# Spotify services
-
-This page descibes the spotify services and where they are implemented in this library
+# Packages
 
 Packages that are to be used by third-parties (like you) reside in the `pkg` folder. Internal packages like cryptography and protobuffers reside in the `internal` folder.
 
 <figure markdown="1">
-  ![Overview of packages and their description in this library](./media/pkg_overview.png)
+  ![Overview of packages and their description in this library](../media/pkg_overview.png)
   <figcaption>An overview of public packages features in this library</figcaption>
 </figure>
+
+!!! info
+    Reference the [Spotify Overview](../spotify/overview.md) to get an idea what each service provides.
 
 !!! warning
     This page describes spotify services and features. That does not mean these are all - already - implemented in this library.
@@ -27,12 +28,6 @@ The discovery service is used to advertise as a Spotify-Connect device on the ne
 
     Broadcasting and tracking this state is done by the SPIRC controller
 
-<figure markdown="1">
-  ![The spotify-connect popup showing two devices](./media/spotify_connect.jpg)
-  <figcaption>Spotify-Connect</figcaption>
-</figure>
-
-
 ## Mercury client
 
 Mercury is a Spotify Publish/Subscribe protocol. It is used to request metadata server and communicate with other spotify clients.
@@ -45,15 +40,11 @@ The metadata client uses a mercury connection to search and fetch all kinds of m
 
 The SPIRC Controller is used to communicate with other spotify-clients authenticated as the same user or connected to the same Spotify-Connect device. 
 
-It is responsible for:
+It is responsible for providing device and playback state (like the current song) and for processing commands (like *skip song*).
 
- - advertising its device state
-  (*I am device "gospotlib_test" and I am the active client*)
- - advertising its playback state
-  (*I am currently playing Captain America by Cal Scruby in the Top 100 playlist*)
- - Receiving commands from the other clients
-  (*Skip track", "Seek forward", "Change playlist*)
+## Audio stream
 
-## Player
+!!! danger
+    Do not attempt to use the audiostream to pirate songs. We do not endorse pirating music and will not provide any help in that effort.
 
-The player is responsible for 
+The audiostream is responsible for requesting encrypted audio chunks and decrypting them.

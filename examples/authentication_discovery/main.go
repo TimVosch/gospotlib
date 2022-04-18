@@ -37,7 +37,7 @@ func main() {
 					continue
 				}
 				log.Printf("[Main] Connected and authenticated succesfully!")
-				// TODO: use authentication connection to interact with spotify API's
+				// TODO: use authenticated connection to interact with spotify API's
 				conn.Close()
 			}
 		}
