@@ -6,8 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/timvosch/gospot/pkg/connection"
-	"github.com/timvosch/gospot/pkg/discovery"
+	"github.com/timvosch/gospotlib/pkg/connection"
+	"github.com/timvosch/gospotlib/pkg/discovery"
 )
 
 var (

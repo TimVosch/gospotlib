@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/timvosch/gospot/internal/crypto"
+	"github.com/timvosch/gospotlib/internal/crypto"
 )
 
 // TODO: Implement locking for concurrent write on socket

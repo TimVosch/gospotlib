@@ -17,8 +17,8 @@ import (
 	"net/http"
 
 	"github.com/grandcat/zeroconf"
-	"github.com/timvosch/gospot/internal/crypto"
-	"github.com/timvosch/gospot/pkg/pb"
+	"github.com/timvosch/gospotlib/internal/crypto"
+	"github.com/timvosch/gospotlib/pkg/pb"
 )
 
 var (

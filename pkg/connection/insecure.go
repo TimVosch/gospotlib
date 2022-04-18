@@ -6,8 +6,8 @@ import (
 	"io"
 	"log"
 
-	"github.com/timvosch/gospot/internal/crypto"
-	"github.com/timvosch/gospot/pkg/pb"
+	"github.com/timvosch/gospotlib/internal/crypto"
+	"github.com/timvosch/gospotlib/pkg/pb"
 	"google.golang.org/protobuf/proto"
 )
 

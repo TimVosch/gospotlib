@@ -7,7 +7,7 @@ import (
 
 	"github.com/librespot-org/librespot-golang/librespot/core"
 	"github.com/librespot-org/librespot-golang/librespot/mercury"
-	"github.com/timvosch/gospot/pkg/pb"
+	"github.com/timvosch/gospotlib/pkg/pb"
 	"google.golang.org/protobuf/proto"
 )
 

@@ -9,7 +9,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/timvosch/gospot/pkg/pb"
+	"github.com/timvosch/gospotlib/pkg/pb"
 	"google.golang.org/protobuf/proto"
 )
 

@@ -1,4 +1,4 @@
-module github.com/timvosch/gospot
+module github.com/timvosch/gospotlib
 
 go 1.18
 
