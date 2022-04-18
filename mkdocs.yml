@@ -1,0 +1,27 @@
+site_name: Gospotlib
+repo_url: https://github.com/timvosch/gospotlib
+repo_name: timvosch/gospotlib
+theme:
+  name: material
+  features: []
+  icon:
+    repo: fontawesome/brands/git-alt 
+  palette:
+    - scheme: default
+      primary: light blue
+      accent: blue grey
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - index.md
+  - spotify.md
