@@ -1,13 +1,11 @@
 # Gospotlib
 
-- [ ] Create docs explaining library structure
-- [ ] Create docs explaining Spotify protocol
-- [ ] Implement mercury connection
-- [ ] Implement metadata client
-- [ ] Implement Player
-  - [ ] How to handle audio backend?
-- [ ] Implement Spirc controller
+Create your own Spotify Client or Spotify-Connect device
+
+## Documentation
+
+See [Documentation](https://timvosch.github.io/gospotlib/).
 
 ## Acknowledgement
 
-- *librespot*; All logic in this library comes from librespot, I just reorganized and reimplemented it in Go :)
+- *librespot*; All spotify API logic is referenced from librespot
