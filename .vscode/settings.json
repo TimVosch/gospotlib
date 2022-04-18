@@ -3,5 +3,10 @@
     "options": [
       "-I${workspaceFolder}/pb"
     ]
+  },
+  "gopls": {
+    "build.buildFlags": [
+      "-tags=mage"
+    ]
   }
 }

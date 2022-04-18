@@ -7,6 +7,7 @@ replace github.com/librespot-org/librespot-golang => /home/timvosch/src/librespo
 require (
 	github.com/grandcat/zeroconf v1.0.0
 	github.com/librespot-org/librespot-golang v0.0.0-20220325184705-31669e5a889f
+	github.com/magefile/mage v1.13.0
 	golang.org/x/crypto v0.0.0-20220408190544-5352b0902921
 	google.golang.org/protobuf v1.28.0
 )
