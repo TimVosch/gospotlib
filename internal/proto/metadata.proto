@@ -1,6 +1,6 @@
 syntax="proto2";
 package pb;
-option go_package = "./pkg/pb";
+option go_package = "github.com/timvosch/gospotlib/pkg/pb";
 
 message TopTracks {
     optional string country = 0x1;
