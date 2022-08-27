@@ -91,7 +91,7 @@ func (c *insecureStream) send(prefix, data []byte) ([]byte, error) {
 func makeHelloMessage(publicKey []byte, nonce []byte) []byte {
 	hello := &pb.ClientHello{
 		BuildInfo: &pb.BuildInfo{
-			Product:  pb.Product_PRODUCT_PARTNER.Enum(),
+			Product:  pb.Product_PRODUCT_CLIENT.Enum(),
 			Platform: pb.Platform_PLATFORM_LINUX_X86.Enum(),
 			Version:  proto.Uint64(0x10800000000),
 		},
