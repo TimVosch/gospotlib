@@ -132,7 +132,7 @@ func getLoginFailedReason(data []byte) error {
 		return fmt.Errorf("failed to unmarshal login failed packet : %v", err)
 	}
 
-	return fmt.Errorf("spotify reported: %s", *pkt.ErrorDescription)
+	return fmt.Errorf("spotify reported: (%s) %s", pkt.GetErrorCode(), pkt.GetErrorDescription())
 }
 
 // apListResponse ...
