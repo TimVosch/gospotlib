@@ -88,6 +88,15 @@ func CredentialsFromBlob(blob64 []byte, username, deviceID string) (*LoginCreden
 	}, nil
 }
 
+func CredentialsFromUsernamePassword(username, password string) *LoginCredentials {
+	cred := &LoginCredentials{
+		Username: proto.String(username),
+		AuthData: []byte(password),
+		Typ: AuthenticationType_AUTHENTICATION_USER_PASS.Enum(),
+	}
+	return cred
+}
+
 func readShort(buf *bytes.Buffer) (uint16, error) {
 	lo, err := buf.ReadByte()
 	if err != nil {
